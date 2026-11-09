@@ -1,0 +1,22 @@
+[project]
+name = "pico-keyboard"
+version = "0.1.0"
+description = "Send keystrokes through a Raspberry Pi Pico acting as a USB keyboard"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = ["pyserial>=3.5"]
+
+[project.scripts]
+pico-keyboard = "pico_keyboard:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# host/pico_keyboard.py を単一モジュールとしてパッケージ化する (firmware/ は含めない)
+[tool.hatch.build.targets.wheel]
+only-include = ["host/pico_keyboard.py"]
+sources = ["host"]
+
+[tool.hatch.build.targets.sdist]
+include = ["host/pico_keyboard.py", "README.md"]
